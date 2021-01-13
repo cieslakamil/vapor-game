@@ -9,18 +9,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
+    <script src="jquery-3.5.1.js"></script>
 </head>
 
 <body>
     <div id="container">
-        <div id="first-player-gui" class="player-gui"></div>
+        <div id="first-player-gui" class="player-gui">
+            <div class="name">player 1</div>
+        </div>
         <div id="game-arena">
 
         </div>
-        <div id="second-player-gui" class="player-gui"></div>
+        <div id="second-player-gui" class="player-gui">
+            <div class="name">player 2</div>
+        </div>
     </div>
     <script>
-        gameArena = document.getElementById("game-arena");
+        body = $('body');
+
+        playerGui = $('.player-gui');
+        gameArena = $('#game-arena');
     </script>
 </body>
 
