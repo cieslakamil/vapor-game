@@ -10,41 +10,49 @@
     <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
     <script src="jquery-3.5.1.js"></script>
-    <script src="layer.js"></script>
+
 </head>
 
 <body>
+
+
     <div id="container">
         <div id="first-player-gui" class="player-gui">
             <div class="name">player 1</div>
         </div>
         <div id="game-arena">
-            <canvas id="background-layer" class="layer"></canvas>
+            <div id="layers"></div>
         </div>
         <div id="second-player-gui" class="player-gui">
             <div class="name">player 2 </div>
         </div>
     </div>
+    <script src="layer.js"></script>
+    <script src="game-object.js"></script>
+    <script src="arena-background.js"></script>
     <script>
-        body = $('body');
-        playerGui = $('.player-gui');
-        gameArena = $('#game-arena');
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
-        bgLayer = new CanvasLayer('#background-layer');
+        const body = $('body');
+        const playerGui = $('.player-gui');
+        const gameArena = $('#game-arena');
+        const background = new GameObject();
+        createBgGradient(background);
 
-        // Creating background image
-        x = parseInt((bgLayer.canvas.get(0).width) / 2);
-        y = parseInt((bgLayer.canvas.get(0).height) / 2);
-        r0 = 20;
-        r1 = 21;
+        // Testing inserting image and moving it.
+        const champ = new GameObject();
+        champ.addImage('baseImg', 'vap-green.png')
 
-        bgLayerGradient = bgLayer.ctx.createRadialGradient(x, y, r0, x, y, r1)
-
-        bgLayerGradient.addColorStop(0, "#390050");
-        bgLayerGradient.addColorStop(1, "#08004e");
-        bgLayer.ctx.fillStyle = bgLayerGradient;
-        bgLayer.ctx.rect(0, 0, bgLayer.canvas.get(0).width, bgLayer.canvas.get(0).height);
-        bgLayer.ctx.fill();
+        async function moveImg() {
+            for (let i = 0; i < 600; i++) {
+                await sleep(10);
+                champ.layer.clear();
+                champ.layer.ctx.drawImage(champ.images['baseImg'], i, i + 3);
+            }
+        }
+        moveImg();
     </script>
 </body>
 
