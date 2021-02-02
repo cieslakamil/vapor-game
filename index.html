@@ -20,7 +20,7 @@
         <div id="first-player-gui" class="player-gui">
             <div class="name">player 1</div>
         </div>
-        <div id="game-arena">
+        <div id="game-area">
             <div id="layers"></div>
         </div>
         <div id="second-player-gui" class="player-gui">
@@ -29,34 +29,29 @@
     </div>
     <script src="layer.js"></script>
     <script src="game-object.js"></script>
-    <script src="arena-background.js"></script>
+    <script src="area-background.js"></script>
     <script src="controls.js"></script>
     <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        // ERROR HERE
-        document.addEventListener("keydown", keyDownHandler, false);
-        document.addEventListener("keyup", keyUpHandler, false);
+        document.addEventListener("keydown", KeyDownHandler, false); // change to jquery
+        document.addEventListener("keyup", keyUpHandler, false); // change to jquery
 
         const body = $('body');
         const playerGui = $('.player-gui');
-        const gameArena = $('#game-arena');
-        const background = new GameObject();
+        const gameArena = $('#game-area');
+        const background = new GameObject(0, 0, 0, 0);
         createBgGradient(background);
-
-        // Testing inserting image and moving it.
-        const champ = new GameObject();
+        // Setting up game player
+        const champ = new GameObject(0, 0, 100, 100);
         champ.addImage('baseImg', 'vap-green.png')
+        champ.currentImage = champ.images['baseImg'];
 
-        async function moveImg() {
-            for (let i = 0; i < 600; i++) {
-                await sleep(10);
-                champ.layer.clear();
-                champ.layer.ctx.drawImage(champ.images['baseImg'], i, i + 6);
-            }
+        function updateGameArea() {
+            champ.catchPlayerMove();
+            champ.changePos();
+            champ.layer.clear();
+            champ.update();
         }
-        moveImg();
+        this.gameLoop = setInterval(updateGameArea, 20);
     </script>
 </body>
 

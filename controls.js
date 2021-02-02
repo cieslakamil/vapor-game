@@ -30,6 +30,3 @@ function KeyDownHandler(e) {
         arrowControls.down = true;
     }
 }
-
-document.addEventListener("keydown", KeyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);

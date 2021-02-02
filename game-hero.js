@@ -1,9 +1,12 @@
 class GameHero {
     constructor() {
         super();
-        this.statistics = {
-            name = 'vapor',
-            hp = 0,
-        }
+        this.name = 'vapor'
+
+        this.health = 0;
+        this.heading = null;
+    }
+    move() {
+        super.move(this.heading);
     }
 }

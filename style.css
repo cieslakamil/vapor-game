@@ -18,19 +18,19 @@ body {
 
 .player-gui {
     width: 15%;
-    background-color: rgba(83, 0, 0, 0.397);
+    background-color: rgba(36, 0, 31, 0.575);
 }
 
 .player-gui .name {
     width: 100%;
     text-align: center;
-    background-color: rgba(133, 0, 0, 0.493);
+    background-color: rgba(69, 0, 133, 0.493);
     padding: 1rem;
     font-size: 1.5rem;
     font-family: 'Audiowide', regular;
 }
 
-#game-arena {
+#game-area {
     background-color: rgba(0, 255, 255, 0.205);
     width: 80%;
 }
