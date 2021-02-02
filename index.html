@@ -30,10 +30,14 @@
     <script src="layer.js"></script>
     <script src="game-object.js"></script>
     <script src="arena-background.js"></script>
+    <script src="controls.js"></script>
     <script>
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
+        //DO CHANGE
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
 
         const body = $('body');
         const playerGui = $('.player-gui');
@@ -49,7 +53,7 @@
             for (let i = 0; i < 600; i++) {
                 await sleep(10);
                 champ.layer.clear();
-                champ.layer.ctx.drawImage(champ.images['baseImg'], i, i + 3);
+                champ.layer.ctx.drawImage(champ.images['baseImg'], i, i + 6);
             }
         }
         moveImg();
