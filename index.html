@@ -29,6 +29,7 @@
     </div>
     <script src="layer.js"></script>
     <script src="game-object.js"></script>
+    <script src="game-hero.js"></script>
     <script src="area-background.js"></script>
     <script src="controls.js"></script>
     <script>
@@ -39,19 +40,22 @@
         const playerGui = $('.player-gui');
         const gameArena = $('#game-area');
         const background = new GameObject(0, 0, 0, 0);
+        const centerXCor = parseInt(background.layer.canvas.width / 2);
+        const centerYCor = parseInt(background.layer.canvas.height / 2);
+
         createBgGradient(background);
         // Setting up game player
-        const champ = new GameObject(0, 0, 100, 100);
-        champ.addImage('baseImg', 'vap-green.png')
-        champ.currentImage = champ.images['baseImg'];
+        const hero = new GameHero(centerXCor, centerYCor, 100, 100);
+        hero.addImage('baseImg', 'vap-green.png')
+        hero.currentImage = hero.images['baseImg'];
+        hero.prepareBullets(5);
 
         function updateGameArea() {
-            champ.catchPlayerMove();
-            champ.changePos();
-            champ.layer.clear();
-            champ.update();
+            hero.catchPlayerAction();
+            hero.update();
         }
-        this.gameLoop = setInterval(updateGameArea, 20);
+        const frameUpdateFrequency = 20;
+        this.gameLoop = setInterval(updateGameArea, frameUpdateFrequency);
     </script>
 </body>
 

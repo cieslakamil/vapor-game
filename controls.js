@@ -3,30 +3,41 @@ const arrowControls = {
     "right": 0,
     "up": 0,
     "down": 0,
+    "space": 0
 }
 
-function keyUpHandler(e) {
-    if (e.key == "Right" || e.key == "ArrowRight") {
+function keyUpHandler(event) {
+    if (event.key == "Right" || event.key == "ArrowRight") {
         arrowControls.right = false;
-    } else if (e.key == "Left" || e.key == "ArrowLeft") {
+    }
+    if (event.key == "Left" || event.key == "ArrowLeft") {
         arrowControls.left = false;
     }
-    if (e.key == "Up" || e.key == "ArrowUp") {
+    if (event.key == "Up" || event.key == "ArrowUp") {
         arrowControls.up = false;
-    } else if (e.key == "Down" || e.key == "ArrowDown") {
+    }
+    if (event.key == "Down" || event.key == "ArrowDown") {
         arrowControls.down = false;
+    }
+    if (event.keyCode == 32) {
+        arrowControls.space = false;
     }
 }
 
-function KeyDownHandler(e) {
-    if (e.key == "Right" || e.key == "ArrowRight") {
+function KeyDownHandler(event) {
+    if (event.key == "Right" || event.key == "ArrowRight") {
         arrowControls.right = true;
-    } else if (e.key == "Left" || e.key == "ArrowLeft") {
+    }
+    if (event.key == "Left" || event.key == "ArrowLeft") {
         arrowControls.left = true;
     }
-    if (e.key == "Up" || e.key == "ArrowUp") {
+    if (event.key == "Up" || event.key == "ArrowUp") {
         arrowControls.up = true;
-    } else if (e.key == "Down" || e.key == "ArrowDown") {
+    }
+    if (event.key == "Down" || event.key == "ArrowDown") {
         arrowControls.down = true;
+    }
+    if (event.keyCode == 32) {
+        arrowControls.space = true;
     }
 }
