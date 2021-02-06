@@ -24,16 +24,16 @@ class GameHero extends GameObject {
         this.ableToShoot = true;
     }
     catchPlayerAction() {
-        if (arrowControls['left']) {
+        if (this.controlKeys['left']) {
             this.moveAngle(this.steeringAngle * (-1));
         }
-        if (arrowControls['right']) {
+        if (this.controlKeys['right']) {
             this.moveAngle(this.steeringAngle);
         }
-        if (arrowControls['up']) {
+        if (this.controlKeys['move']) {
             this.move();
         }
-        if (arrowControls['space']) {
+        if (this.controlKeys['shoot']) {
             if (this.ableToShoot) {
                 this.shoot();
                 //this.setShootCooldown();

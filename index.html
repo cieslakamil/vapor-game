@@ -31,7 +31,7 @@
     <script src="game-object.js"></script>
     <script src="game-hero.js"></script>
     <script src="area-background.js"></script>
-    <script src="controls.js"></script>
+    <script src="control-keys.js"></script>
     <script>
         document.addEventListener("keydown", KeyDownHandler, false); // change to jquery
         document.addEventListener("keyup", keyUpHandler, false); // change to jquery
@@ -45,7 +45,7 @@
 
         createBgGradient(background);
         // Setting up game player
-        const hero = new GameHero(centerXCor, centerYCor, 100, 100);
+        const hero = new GameHero(centerXCor, centerYCor, 100, 100, arrowControls);
         hero.addImage('baseImg', 'vap-green.png')
         hero.currentImage = hero.images['baseImg'];
         hero.setWalls(0, background.layer.canvas.width, 0, background.layer.canvas.height);
