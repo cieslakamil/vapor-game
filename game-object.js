@@ -1,8 +1,3 @@
-/**
- * Basic element in the game, contains:
- * layer
- * images
- */
 class GameObject {
     constructor(x, y, width, height) {
         this.layer = new CanvasLayer;
@@ -10,7 +5,7 @@ class GameObject {
         this.yCor = y;
         this.width = width;
         this.height = height;
-        this.size = 1;
+        this.radius = 1;
         this.speed = 0;
         this.angle = 0
         this.images = {};

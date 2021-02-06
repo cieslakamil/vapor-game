@@ -1,21 +1,15 @@
-/**
- * An interface for using multiple canvases.
- */
 class CanvasLayer {
     static layersCount = 0;
     constructor() {
-            this.canvas = document.createElement('canvas');
-            this.canvas.id = 'layer' + CanvasLayer.layersCount;
-            CanvasLayer.layersCount += 1;
-            $(this.canvas).addClass('layer');
-            $('#layers').append(this.canvas);
-            this.canvas.width = 1920;
-            this.canvas.height = 1200;
-            this.ctx = this.canvas.getContext('2d');
-        }
-        /**
-         * Clear whole canvas area. 
-         */
+        this.canvas = document.createElement('canvas');
+        this.canvas.id = 'layer' + CanvasLayer.layersCount;
+        CanvasLayer.layersCount += 1;
+        $(this.canvas).addClass('layer');
+        $('#layers').append(this.canvas);
+        this.canvas.width = 1920;
+        this.canvas.height = 1200;
+        this.ctx = this.canvas.getContext('2d');
+    }
     clear() {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         }

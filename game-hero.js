@@ -1,11 +1,14 @@
 class GameHero extends GameObject {
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, controlKeys) {
         super(x, y, width, height);
-        this.name = 'vapor'
-        this.health = 0;
+        // moving physics
+        this.controlKeys = controlKeys;
         this.speed = 20;
-        this.ableToShoot = true;
         this.steeringAngle = 11;
+        // collision physics
+        this.radius = 25;
+        this.walls = {};
+        // shooting properties
         this.bulletProperties = {
             width: 15,
             height: 15,
@@ -18,6 +21,7 @@ class GameHero extends GameObject {
         this.bulletsCount = 20;
         this.bullets = this.prepareBullets(this.bulletsCount);
         this.currentBulletNumber = 0;
+        this.ableToShoot = true;
     }
     catchPlayerAction() {
         if (arrowControls['left']) {
@@ -27,24 +31,44 @@ class GameHero extends GameObject {
             this.moveAngle(this.steeringAngle);
         }
         if (arrowControls['up']) {
-            this.movePosition(this.speed);
-        }
-        if (arrowControls['down']) {
-            this.movePosition(this.speed * (-1));
+            this.move();
         }
         if (arrowControls['space']) {
             if (this.ableToShoot) {
-                let bullet = this.getBullet();
-                this.shoot(bullet);
+                this.shoot();
                 //this.setShootCooldown();
             }
         }
     }
-    shoot(bullet) {
+    move() {
+        const speedX = this.speed * Math.sin(this.angle);
+        const speedY = this.speed * Math.cos(this.angle);
+        // if there is no collision with vertical walls,
+        // move on x-axis
+        if (this.xCor + speedX > this.walls['left'] && this.xCor + speedX < this.walls['right']) {
+            this.xCor += speedX;
+        }
+        // if there is no collision with horizontal walls,
+        // move on y-axis
+        if (this.yCor - speedY > this.walls['top'] && this.yCor - speedY < this.walls['bottom']) {
+            this.yCor -= speedY;
+        }
+    }
+    setWalls(left, right, top, bottom) {
+            this.walls['left'] = left + this.radius;
+            this.walls['right'] = right - this.radius;
+            this.walls['top'] = top + this.radius;
+            this.walls['bottom'] = bottom - this.radius;
+        }
+        // Shooting functions
+    shoot() {
+        const bullet = this.getBullet();
         bullet.xCor = this.xCor;
         bullet.yCor = this.yCor;
         bullet.angle = this.angle;
+        // if the bullet was in use, reset it
         clearInterval(bullet.movingInterval);
+        // start moving the bullet
         bullet.movingInterval = setInterval(() => {
             bullet.movePosition();
             bullet.update();
@@ -54,11 +78,12 @@ class GameHero extends GameObject {
         this.ableToShoot = false;
         setTimeout(() => { this.ableToShoot = true }, this.bulletProperties.cooldown);
     }
-    createBullet() {
-        const bullet = new GameObject(null, null, this.bulletProperties.width, this.bulletProperties.height);
-        bullet.addImage(this.bulletProperties.imageName, this.bulletProperties.imageSrc);
-        bullet.currentImage = bullet.images[this.bulletProperties.imageName];
-        bullet.speed = this.bulletProperties.speed;
+    getBullet() {
+        const bullet = this.bullets[this.currentBulletNumber];
+        this.currentBulletNumber += 1;
+        if (this.currentBulletNumber > this.bulletsCount - 1) {
+            this.currentBulletNumber = 0;
+        }
         return bullet;
     }
     prepareBullets(quantity) {
@@ -68,13 +93,12 @@ class GameHero extends GameObject {
         }
         return bullets;
     }
-    getBullet() {
-        const bullet = this.bullets[this.currentBulletNumber];
-        this.currentBulletNumber += 1;
-        if (this.currentBulletNumber > this.bulletsCount - 1) {
-            this.currentBulletNumber = 0;
+    createBullet() {
+            const bullet = new GameObject(null, null, this.bulletProperties.width, this.bulletProperties.height);
+            bullet.addImage(this.bulletProperties.imageName, this.bulletProperties.imageSrc);
+            bullet.currentImage = bullet.images[this.bulletProperties.imageName];
+            bullet.speed = this.bulletProperties.speed;
+            return bullet;
         }
-        console.log(bullet);
-        return bullet;
-    }
+        // End of shooting functions
 }

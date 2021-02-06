@@ -48,7 +48,7 @@
         const hero = new GameHero(centerXCor, centerYCor, 100, 100);
         hero.addImage('baseImg', 'vap-green.png')
         hero.currentImage = hero.images['baseImg'];
-        hero.prepareBullets(5);
+        hero.setWalls(0, background.layer.canvas.width, 0, background.layer.canvas.height);
 
         function updateGameArea() {
             hero.catchPlayerAction();

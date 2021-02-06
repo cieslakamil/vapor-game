@@ -1,8 +1,3 @@
-/**
- * Create predefined background gradient.
- * 
- * Code enclosed in a function just for scope purposes.
- */
 function createBgGradient(background) {
     const x = parseInt((background.layer.canvas.width) / 2);
     const y = parseInt((background.layer.canvas.height) / 2);
