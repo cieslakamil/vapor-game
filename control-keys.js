@@ -12,8 +12,6 @@ const awsdControls = {
 }
 
 function keyHandler(event, boolValue) {
-    //65, 68,87,84
-    //37, 39, 38, 32
     switch (event.keyCode) {
         // arrow controls
         case 37:
@@ -27,6 +25,7 @@ function keyHandler(event, boolValue) {
             break;
         case 32:
             arrowControls.shoot = boolValue;
+            break;
             // awsd controls
         case 65:
             awsdControls.left = boolValue;
@@ -39,6 +38,7 @@ function keyHandler(event, boolValue) {
             break;
         case 84:
             awsdControls.shoot = boolValue;
+            break;
     }
 }
 

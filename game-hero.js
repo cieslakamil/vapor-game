@@ -6,7 +6,7 @@ class GameHero extends GameObject {
         this.speed = 20;
         this.steeringAngle = 11;
         // collision physics
-        this.radius = 25;
+        this.radius = 50;
         this.walls = {};
         // shooting properties
         this.bulletProperties = {
@@ -42,7 +42,8 @@ class GameHero extends GameObject {
     }
     move() {
         const speedX = this.speed * Math.sin(this.angle);
-        const speedY = this.speed * Math.cos(this.angle);
+        const speedY = (-1) * this.speed * Math.cos(this.angle);
+
         // if there is no collision with vertical walls,
         // move on x-axis
         if (this.xCor + speedX > this.walls['left'] && this.xCor + speedX < this.walls['right']) {
@@ -50,9 +51,16 @@ class GameHero extends GameObject {
         }
         // if there is no collision with horizontal walls,
         // move on y-axis
-        if (this.yCor - speedY > this.walls['top'] && this.yCor - speedY < this.walls['bottom']) {
-            this.yCor -= speedY;
+        if (this.yCor + speedY > this.walls['top'] && this.yCor + speedY < this.walls['bottom']) {
+            this.yCor += speedY;
         }
+    }
+    checkCollision(object) {
+        const dx = object.xCor - self.xCor;
+        const dy = object.yCor - self.yCor;
+
+        if (dx + dy < self.radius)
+            return true;
     }
     setWalls(left, right, top, bottom) {
             this.walls['left'] = left + this.radius;

@@ -45,14 +45,21 @@
 
         createBgGradient(background);
         // Setting up game player
-        const hero = new GameHero(centerXCor, centerYCor, 100, 100, arrowControls);
-        hero.addImage('baseImg', 'vap-green.png')
-        hero.currentImage = hero.images['baseImg'];
-        hero.setWalls(0, background.layer.canvas.width, 0, background.layer.canvas.height);
+        const hero1 = new GameHero(centerXCor, centerYCor, 100, 100, arrowControls);
+        hero1.addImage('baseImg', 'vap-green.png')
+        hero1.currentImage = hero1.images['baseImg'];
+        hero1.setWalls(0, background.layer.canvas.width, 0, background.layer.canvas.height);
+
+        const hero2 = new GameHero(centerXCor - 100, centerYCor, 100, 100, awsdControls);
+        hero2.addImage('baseImg', 'vap-green.png')
+        hero2.currentImage = hero2.images['baseImg'];
+        hero2.setWalls(0, background.layer.canvas.width, 0, background.layer.canvas.height);
 
         function updateGameArea() {
-            hero.catchPlayerAction();
-            hero.update();
+            hero1.catchPlayerAction();
+            hero1.update();
+            hero2.catchPlayerAction();
+            hero2.update();
         }
         const frameUpdateFrequency = 20;
         this.gameLoop = setInterval(updateGameArea, frameUpdateFrequency);
