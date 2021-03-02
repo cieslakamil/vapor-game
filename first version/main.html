@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8" />
+    <title>v a p o r e o n</title>
+    <link rel="stylesheet" href="css\style.css" />
+    <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div id="team1" class="team-window">
+            <div id="player0" class="player-window">
+                <div class="name">PLOKSU</div>
+                <div class="health"></div>
+                <div class="bullet"></div>
+
+            </div>
+            <div id="player2" class="player-window">
+                <div class="name">PINK</div>
+                <div class="health"></div>
+                <div class="bullet"></div>
+            </div>
+        </div>
+        <div id="layers"></div>
+
+        <div id="team2" class="team-window">
+            <div id="player1" class="player-window">
+                <div class="name">BIALYyy</div>
+                <div class="health"></div>
+                <div class="bullet"></div>
+            </div>
+            <div id="player3" class="player-window">
+                <div class="name">BLUE</div>
+                <div class="health"></div>
+                <div class="bullet"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js\layer.js"></script>
+    <script src="js\controls.js"></script>
+    <script src="js\gameObject.js"></script>
+    <script src="js\bullet.js"></script>
+    <script src="js\vapor.js"></script>
+    <script src="js\bonus.js"></script>
+    <script>
+        // canvas layers
+        const areaX = 1000;
+        const areaY = 700;
+        const nullMargin = 100;
+        let gameArea = [areaX];
+        for (let i = 0 - nullMargin; i < areaX + nullMargin; i++) {
+            gameArea[i] = [areaY];
+            for (let j = 0 - nullMargin; j + nullMargin < areaY; j++)
+                gameArea[i][j] = null;
+        }
+
+        //background area
+        const background = new Layer();
+        const backgroundGradient = background.ctx.createRadialGradient(areaX / 2, areaY / 2, 50, areaX / 2, areaY / 2, areaY);
+        backgroundGradient.addColorStop(0, "#390050");
+        backgroundGradient.addColorStop(1, "#08004e");
+        background.ctx.fillStyle = backgroundGradient;
+        background.ctx.rect(0, 0, areaX, areaY);
+        background.ctx.fill();
+
+        //players
+        const numOfPlayers = 4;
+        const players = new Array(numOfPlayers);
+        for (let i = 0, player; i < numOfPlayers; i++) {
+            players[i] = new Vapor();
+            player = players[i];
+            player.htmlName = "player" + i;
+            player.htmlHealth = document.getElementById(player.htmlName).getElementsByClassName("health")[0];
+            player.htmlBullet = document.getElementById(player.htmlName).getElementsByClassName("bullet")[0];
+        }
+
+        //team1
+        players[0].color = "red";
+        players[0].team = 1;
+        players[0].images.base.src = "img\\vapors\\vap_red_base.png";
+        players[0].images.sad.src = "img\\vapors\\vap_red_sad.png";
+        players[0].startingX = 30;
+        players[0].startingY = 30;
+        players[0].vector = "right";
+        players[0].controls = wasdControls;
+        players[0].launchingKey = 1;
+        players[0].awaitLaunch();
+
+        players[2].color = "pink";
+        players[2].team = 1;
+        players[2].images.base.src = "img\\vapors\\vap_pink_base.png";
+        players[2].images.sad.src = "img\\vapors\\vap_pink_sad.png";
+        players[2].startingX = 30;
+        players[2].startingY = 600;
+        players[2].vector = "right";
+        players[2].controls = secondControls;
+        players[2].launchingKey = 3;
+
+        players[2].awaitLaunch(51);
+        //team2
+
+        players[1].color = "green";
+        players[1].team = 2;
+        players[1].images.base.src = "img\\vapors\\vap_green_base.png";
+        players[1].images.sad.src = "img\\vapors\\vap_green_sad.png";
+        players[1].startingX = 900;
+        players[1].startingY = 30;
+        players[1].vector = "left";
+        players[1].controls = arrowControls;
+        players[1].launchingKey = 2;
+        players[1].awaitLaunch(50);
+
+        players[3].color = "blue";
+        players[3].team = 2;
+        players[3].images.base.src = "img\\vapors\\vap_blue_base.png";
+        players[3].images.sad.src = "img\\vapors\\vap_blue_sad.png";
+        players[3].startingX = 900;
+        players[3].startingY = 600;
+        players[3].vector = "left";
+        players[3].controls = thirdControls;
+        players[3].launchingKey = 4;
+
+        players[3].awaitLaunch(52);
+
+        //BONUSES
+        Bonus.prototype.players = players;
+        bon1 = new Bonus();
+        bon2 = new Bonus();
+        //bon1.place(120, 120);
+        //bon2.place(800, 530);
+
+        //map borders
+        //MAYBE THERE IS A BETTER WAY TO DO IT?
+        const leftBorder = new MapObject();
+        leftBorder.build(0, 0, 1, areaY);
+        const rightBorder = new MapObject();
+        rightBorder.build(areaX - 2, 0, 1, areaY);
+        const topBorder = new MapObject();
+        topBorder.build(0, 0, areaX, 1);
+        const botBorder = new MapObject();
+        botBorder.build(0, areaY - 1, areaX, 1);
+
+        //WALLS
+        // CHANGE IT DEFINETELY
+
+        const block1 = new MapObject();
+        block1.build(200, 230, 180, 10);
+
+        const block2 = new MapObject();
+        block2.build(150, 450, 200, 10);
+        const block3 = new MapObject();
+        block3.build(350, 450, 10, 90);
+        const block4 = new MapObject();
+        block4.build(600, 160, 10, 190);
+
+        const block5 = new MapObject();
+        block5.build(770, 480, 50, 50);
+
+        const block6 = new MapObject();
+        block6.build(610, 250, 100, 10);
+
+        const block7 = new MapObject();
+        block7.build(190, 150, 10, 90);
+    </script>
+</body>
+
+</html>

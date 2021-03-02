@@ -1,0 +1,105 @@
+body {
+    background-color: #070707;
+    color: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 1500px;
+}
+
+#team1 {}
+
+#team2 {
+    left: 1260px;
+}
+
+.team-window {
+    position: fixed;
+    width: 260px;
+    height: 700px;
+    left: 0px;
+    top: 0px;
+    float: right;
+    font-family: 'Audiowide', regular;
+}
+
+.player-window {
+    position: relative;
+    margin: auto;
+    width: 240px;
+    height: 344px;
+    margin-top: 11px;
+    background-color: #20202023;
+}
+
+.name {
+    padding: 20px;
+    letter-spacing: 5px;
+    width: 240px;
+    font-size: 35px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#player0 {
+    color: #ff0000;
+    background-color: #6100002f;
+    border: solid 3px #ff0000;
+    text-shadow: 0 0 10px rgb(224, 0, 0), 0 0 20px rgb(63, 0, 0), 0 0 30px #79003c, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+}
+
+#player1 {
+    color: #4ff078;
+    border: solid 3px #4ff078;
+    background-color: #004b1328;
+    text-shadow: none;
+    text-shadow: 0 0 10px rgb(0, 224, 37), 0 0 20px rgb(1, 160, 36), 0 0 30px #41e600, 0 0 40px #a9e600, 0 0 50px #00e600, 0 0 60px #00ff73, 0 0 70px #046e00;
+}
+
+#player2 {
+    color: #ed00f5;
+    border: solid 3px #ed00f5;
+    background-color: #4d005031;
+    text-shadow: 0 0 10px #88008d, 0 0 20px #b000b6, 0 0 30px #c90064, 0 0 40px #a100af, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+}
+
+#player3 {
+    color: #00f7ff;
+    border: solid 3px #00f7ff;
+    background-color: #00303334;
+    text-shadow: 0 0 10px #00e5f5, 0 0 20px #00ffff, 0 0 30px #00c3ff, 0 0 40px #0051e6, 0 0 50px #007fe6, 0 0 60px #00e6e6, 0 0 70px #00e1ff;
+}
+
+.health {
+    padding-top: 20px;
+    font-size: 35px;
+    width: 200px;
+    margin: auto;
+    letter-spacing: 4px;
+}
+
+.bullet {
+    color: #ffd900;
+    text-shadow: 0 0 10px #ffa600a6, 0 0 20px #ffee00b2, 0 0 30px #ff7b00c4, 0 0 40px #ffe600c9, 0 0 50px #ffd000, 0 0 60px #fffc67be, 0 0 70px #ffd000b7;
+    padding-top: 20px;
+    font-size: 35px;
+    width: 200px;
+    margin: auto;
+    letter-spacing: 4px;
+}
+
+#layers {
+    position: fixed;
+    left: 260px;
+    top: 10px;
+}
+
+.layer {
+    position: fixed;
+    width: 1000px;
+    height: 700px;
+}
